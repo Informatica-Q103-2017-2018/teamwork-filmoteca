@@ -1,6 +1,0 @@
- Titulo: probando 
-Año: 0 
-Nota: 0.00 
- Titulo: prueba 
-Año: 4839 
-Nota: 4.67 
