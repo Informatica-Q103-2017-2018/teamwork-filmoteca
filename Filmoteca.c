@@ -42,7 +42,7 @@ int main()
 }
 
 void registrapeli(pelicula peli)
-{FILE *pfilmoteca;	
+{FILE *pfilmoteca;
 			pfilmoteca=fopen("Videoteca.txt","a");
 				printf("Titulo de la pelicula:\n");
 				scanf("%s", &peli.titulo);
