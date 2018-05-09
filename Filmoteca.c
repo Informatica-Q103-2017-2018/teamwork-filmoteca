@@ -59,3 +59,4 @@ void registrapeli(pelicula peli)
 //sdggsdsdg
 //kjhfg
 //bhgfdghj
+// otro comentario prueba
