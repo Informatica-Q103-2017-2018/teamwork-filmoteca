@@ -21,15 +21,17 @@ int main()
 	pelicula vcatalogo[100];
 	do
 	{
-		printf("Que desea hacer: b:Registar, c:Buscar\n");
+		printf("Que desea hacer: r:Registar, m:Mostrar \n");
 		scanf("%c",&a);
 		switch (a)
 			{
-				case 'b':
+				case 'r':
+				case 'R':	
 					registrapeli(vcatalogo[0]);
 					error=1;
 					break;
-				case 'c':
+				case 'm':
+				case 'M':
 					//tatata
 					error=1;
 					break;
@@ -41,17 +43,28 @@ int main()
 	}while(error<0);
 }
 
+
 void registrapeli(pelicula peli)
 {FILE *pfilmoteca;
 			pfilmoteca=fopen("Videoteca.txt","a");
+			
 				printf("Titulo de la pelicula:\n");
 				scanf("%s", &peli.titulo);
 				fprintf(pfilmoteca, " Titulo: %s \n", peli.titulo);
+				
 				printf("Year en el que se estreno la peli:\n");
 				scanf("%d",&peli.year);
 				fprintf(pfilmoteca, "Año: %d \n", peli.year);
+				
 				printf("Nota de la pelicula:\n");
 				scanf("%f",&peli.nota);
 				fprintf(pfilmoteca, "Nota: %.2f \n", peli.nota);
+				fprintf(pfilmoteca, " \n");
+				
 			fclose(pfilmoteca);
+			printf("pelicula registrada con exito \n");
 }	
+
+
+
+
