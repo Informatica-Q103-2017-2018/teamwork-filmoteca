@@ -56,3 +56,4 @@ void registrapeli(pelicula peli)
 			fclose(pfilmoteca);
 }	
 //123
+//sadfgh
