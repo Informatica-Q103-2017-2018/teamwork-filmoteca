@@ -57,3 +57,4 @@ void registrapeli(pelicula peli)
 }	
 //123
 //sadfgh
+//asdfghj
