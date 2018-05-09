@@ -55,3 +55,6 @@ void registrapeli(pelicula peli)
 				fprintf(pfilmoteca, "Nota: %.2f \n", peli.nota);
 			fclose(pfilmoteca);
 }	
+// estoy dentro
+//sdggsdsdg
+//kjhfg
