@@ -56,5 +56,11 @@ void registrapeli(pelicula peli)
 				scanf("%f",&peli.nota);
 				fprintf(pfilmoteca, "Nota: %.2f \n", peli.nota);
 			fclose(pfilmoteca);
+<<<<<<< HEAD
+}	
+
+=======
 			printf("\n Pelicula registrada correctamente.");
 }
+>>>>>>> f04eb45ee2a619100e88fa93d29587292efd8e1e
+//alvaro se ha unido
