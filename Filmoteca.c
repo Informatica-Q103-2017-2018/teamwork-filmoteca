@@ -23,6 +23,7 @@ int main()
 	{
 		printf("Que desea hacer: R:Registar, B:Buscar\n");
 		scanf("%c",&a);
+		fflush(stdin);
 		switch (a)
 			{
 				case 'R':
@@ -47,8 +48,8 @@ void registrapeli(pelicula peli)
 {FILE *pfilmoteca;
 			pfilmoteca=fopen("Videoteca.txt","a");
 				printf("Titulo de la pelicula:\n");
-				scanf("%s", peli.titulo);
-				fprintf(pfilmoteca, " Titulo: %s\n", peli.titulo);
+				scanf("%[^\n]", peli.titulo);
+				fprintf(pfilmoteca, "-Titulo: %s\n", peli.titulo);
 				printf("Year en el que se estreno la peli:\n");
 				scanf("%d",&peli.year);
 				fprintf(pfilmoteca, "A?o: %d \n", peli.year);
@@ -57,12 +58,4 @@ void registrapeli(pelicula peli)
 				fprintf(pfilmoteca, "Nota: %.2f \n", peli.nota);
 			fclose(pfilmoteca);
 			printf("\n Pelicula registrada correctamente.");
-//<<<<<<< HEAD
-}	
-
-//=======
-			
-
-//>>>>>>> f04eb45ee2a619100e88fa93d29587292efd8e1e
-//alvaro se ha unido
-//javier!!
+}
