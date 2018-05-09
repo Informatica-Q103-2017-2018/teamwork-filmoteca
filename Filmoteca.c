@@ -64,3 +64,4 @@ void registrapeli(pelicula peli)
 }
 >>>>>>> f04eb45ee2a619100e88fa93d29587292efd8e1e
 //alvaro se ha unido
+//javier
