@@ -58,3 +58,4 @@ void registrapeli(pelicula peli)
 // estoy dentro
 //sdggsdsdg
 //kjhfg
+//bhgfdghj
