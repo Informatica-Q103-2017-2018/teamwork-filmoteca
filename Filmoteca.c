@@ -19,7 +19,7 @@ void mostrarpeli(pelicula peli);
 int main()
 {
 	FILE *pvideoteca;
-	char a; // a para el switch
+	char a; // para el switch
 	int error;
 	pelicula vcatalogo[N];
 	do{
