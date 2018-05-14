@@ -1,12 +1,13 @@
 #include<stdio.h>
 #include<math.h>
-#define N 8
+#define N 15
 
 typedef struct{
 	char titulo[50];
 	int year;
 	float nota;
 }pelicula;
+
 
 //Funci?n ordenar por titulo
 //Funci?n ordenar por nota
@@ -17,9 +18,12 @@ void mostrarpeli(pelicula peli);
 int main()
 {
 	FILE *pvideoteca;
-	char a; // a para el switch
+	char a; // para el switch
 	int error;
 	pelicula vcatalogo[N];
+
+	do{
+		printf("\n");
 	do
 	{
 		printf("Que desea hacer: R:Registar, M:Mostrar \n");
@@ -31,22 +35,25 @@ int main()
 				case 'r':	
 					registrapeli(vcatalogo[N]);
 					error=1;
-					break;
+				break;
 					
 				case 'm':
 				case 'M':	
 					mostrarpeli(vcatalogo[N]);
 					error=1;
-					break;
+				break;
 					
 				default:
-					printf("Opcion no disponible\n");
+					printf("Opcion no disponible \n");
 					error=-1;
-					break;
+				break;
 			}
+			fflush(stdin);
 	}while(error<0);
+	}while(error>0);
 	return 0;
 }
+
 
 
 void registrapeli(pelicula peli)
@@ -65,10 +72,13 @@ void registrapeli(pelicula peli)
 			printf("Nota de la pelicula:\n");
 			scanf("%f",&peli.nota);
 			fprintf(pfilmoteca, "%.2f ", peli.nota);
+			printf("\n");
 			
 		fclose(pfilmoteca);
-		printf("\n Pelicula registrada correctamente.");
+		printf("\n Pelicula registrada correctamente \n");
 }
+
+
 
 void mostrarpeli(pelicula peli)
 {
@@ -81,9 +91,9 @@ void mostrarpeli(pelicula peli)
 		for (i = 0; i <=N ; i++) // Leemos el fichero línea a línea de cosas separadas por espacios
 		{  
 		fscanf(pfilmoteca, "%s %i %f", &peli.titulo, &peli.year, &peli.nota);
-		printf("%s\t\t %i\t\t %.2f \n",peli.titulo, peli.year, peli.nota);
+		printf("%s\t\t\t %i\t\t\t %.2f \n",peli.titulo, peli.year, peli.nota);
 		}
-	fclose(pfilmoteca);// Cerramos el fichero 
+	fclose(pfilmoteca); 
 	}
 
 
