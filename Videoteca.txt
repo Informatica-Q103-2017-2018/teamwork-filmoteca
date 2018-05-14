@@ -1,16 +1,6 @@
- Titulo: prueba 
-Año: 2018 
-Nota: 3.50 
- Titulo: hola 
-Año: 2017 
-Nota: 4.20 
- 
- Titulo: e
-A?o: 1222 
-Nota: 5.00 
- Titulo: lolo
-A?o: 345 
-Nota: 34.00 
--Titulo: El Padrino 2
-A?o: 1974 
-Nota: 10.00 
+prueba 2018 3.50 
+hola 2017 4.20 
+elu 1222 5.00 
+lolo 345 34.00 
+hola 2832 5.60 
+FHDF 476547 46.65 fdhtfusrtjugjdf 2434 39.40 el padrino 1948 8.40 

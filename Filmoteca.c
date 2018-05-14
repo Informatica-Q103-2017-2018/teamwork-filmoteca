@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<math.h>
+#define N 8
 
 typedef struct{
 	char titulo[50];
@@ -7,34 +8,34 @@ typedef struct{
 	float nota;
 }pelicula;
 
-int ordenarPorYear( int *pfilmoteca);
 //Funci?n ordenar por titulo
 //Funci?n ordenar por nota
 //Funci?n ordenar por g?nero
 void registrapeli(pelicula peli);
+void mostrarpeli(pelicula peli);
 
 int main()
 {
 	FILE *pvideoteca;
 	char a; // a para el switch
 	int error;
-	pelicula vcatalogo[100];
+	pelicula vcatalogo[N];
 	do
 	{
-		printf("Que desea hacer: R:Registar, B:Buscar\n");
+		printf("Que desea hacer: R:Registar, M:Mostrar \n");
 		scanf("%c",&a);
 		fflush(stdin);
 		switch (a)
 			{
 				case 'R':
 				case 'r':	
-					registrapeli(vcatalogo[0]);
+					registrapeli(vcatalogo[N]);
 					error=1;
 					break;
 					
-				case 'b':
-				case 'B':	
-					//tatata
+				case 'm':
+				case 'M':	
+					mostrarpeli(vcatalogo[N]);
 					error=1;
 					break;
 					
@@ -44,70 +45,45 @@ int main()
 					break;
 			}
 	}while(error<0);
+	return 0;
 }
 
 
 void registrapeli(pelicula peli)
-{FILE *pfilmoteca;
-			pfilmoteca=fopen("Videoteca.txt","a");
-			
-				printf("Titulo de la pelicula:\n");
-				scanf("%[^\n]", peli.titulo);
-				fprintf(pfilmoteca, "-Titulo: %s\n", peli.titulo);
-				
-				printf("Year en el que se estreno la peli:\n");
-				scanf("%d",&peli.year);
-				fprintf(pfilmoteca, "Year: %d \n", peli.year);
-				
-				printf("Nota de la pelicula:\n");
-				scanf("%f",&peli.nota);
-				fprintf(pfilmoteca, "Nota: %.2f \n", peli.nota);
-				fprintf(pfilmoteca, "\n");
-				
-			fclose(pfilmoteca);
-			printf("\n Pelicula registrada correctamente.");
-}
-
-
-
-int ordenarPorYear(int *pfilmoteca)
 {
-	int i;
-	int j;
-	long tam_struct;
-	long num_struct;
-	pfilmoteca=fopen("Videoteca.txt","r");
-	pelicula peli_i;
-	pelicula peli_j;
-	fseek(pfilmoteca,0,SEEK_END);
-	file_bytes = ftell(pfilmoteca); //Para saber el numero de bytes del fichero
-	tam_struct = sizeof(pelicula); //Para saber el numero de bytes que ocupa la pel?cula
-	num_struct = file_bytes / tam_struct; // Para saber el n?mero de pel?culas 
-	for (i=0;i<num_struct-1;i++)
-	{
-		for (j=i+1;j<num_struct;j++)
-		{
-			int mov_pos1 = tam_struct*i;
-			fseek(pfilmoteca,mov_pos1,SEEK_SET);
-			fread(&peli_i,tam_struct,1,pfilmoteca);
-			int mov_pos2 = tam_struct*j; 
-			fseek(pfilmoteca,mov_pos2,SEEK_SET);
-			fread(&peli_j,tam_struct,1,pfilmoteca);
-			if (peli_i.year>peli_j.year)
-			{
-				fseek(pfilmoteca,mov_pos1,SEEK_SET);
-				fwrite(&peli_j,tam_struct,1,pfilmoteca);
-				fflush(pfilmoteca);
-				fseek(pfilmoteca,mov_pos2,SEEK_SET);
-				fwrite(&peli_i,tam_struct,1,pfilmoteca);
-				fflush(pfilmoteca);
-			}
-
-		}
-
-	}
-	fclose(pfilmoteca);
+	FILE *pfilmoteca;
+		pfilmoteca=fopen("Videoteca.txt","a");
+		
+			printf("Titulo de la pelicula:\n");
+			scanf("%[^\n]", peli.titulo);
+			fprintf(pfilmoteca, "%s ", peli.titulo);
+			
+			printf("Year en el que se estreno la peli:\n");
+			scanf("%d",&peli.year);
+			fprintf(pfilmoteca, "%d ", peli.year);
+			
+			printf("Nota de la pelicula:\n");
+			scanf("%f",&peli.nota);
+			fprintf(pfilmoteca, "%.2f ", peli.nota);
+			
+		fclose(pfilmoteca);
+		printf("\n Pelicula registrada correctamente.");
 }
 
+void mostrarpeli(pelicula peli)
+{
+	FILE *pfilmoteca;
+	int i;
+	
+	pfilmoteca = fopen("videoteca.txt", "r");
+
+	printf("Titulo\t\t Year\t\t Nota\n");
+		for (i = 0; i <=N ; i++) // Leemos el fichero línea a línea de cosas separadas por espacios
+		{  
+		fscanf(pfilmoteca, "%s %i %f", &peli.titulo, &peli.year, &peli.nota);
+		printf("%s\t\t %i\t\t %.2f \n",peli.titulo, peli.year, peli.nota);
+		}
+	fclose(pfilmoteca);// Cerramos el fichero 
+	}
 
 
