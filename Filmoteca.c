@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<math.h>
-#define N 15
+#define N 5
 
 typedef struct{
 	char titulo[50];
@@ -57,25 +57,23 @@ int main()
 
 
 void registrapeli(pelicula peli)
-{
-	FILE *pfilmoteca;
-		pfilmoteca=fopen("Videoteca.txt","a");
-		
-			printf("Titulo de la pelicula:\n");
-			scanf("%[^\n]", peli.titulo);
-			fprintf(pfilmoteca, "%s ", peli.titulo);
+{FILE *pfilmoteca;
+			pfilmoteca=fopen("Videoteca.txt","a");
+				
+				printf("Titulo de la pelicula:\n");
+				scanf("%[^\n]", peli.titulo);
+				fprintf(pfilmoteca, "-%s\n", peli.titulo);
+				
+				printf("Year en el que se estreno la peli:\n");
+				scanf("%d",&peli.year);
+				fprintf(pfilmoteca, "%d \n", peli.year);
+				
+				printf("Nota de la pelicula:\n");
+				scanf("%f",&peli.nota);
+				fprintf(pfilmoteca, "%.2f \n", peli.nota);
 			
-			printf("Year en el que se estreno la peli:\n");
-			scanf("%d",&peli.year);
-			fprintf(pfilmoteca, "%d ", peli.year);
-			
-			printf("Nota de la pelicula:\n");
-			scanf("%f",&peli.nota);
-			fprintf(pfilmoteca, "%.2f ", peli.nota);
-			printf("\n");
-			
-		fclose(pfilmoteca);
-		printf("\n Pelicula registrada correctamente \n");
+			fclose(pfilmoteca);
+			printf("\n Pelicula registrada correctamente.");
 }
 
 
@@ -88,10 +86,11 @@ void mostrarpeli(pelicula peli)
 	
 	pfilmoteca = fopen("videoteca.txt", "r");
 
-	printf("Titulo\t\t Year\t\t Nota\n");
+	printf("Titulo\t\t\t Year\t\t\t Nota\n");
 		for (i = 0; i <=N ; i++) // Leemos el fichero línea a línea de cosas separadas por espacios
 		{  
-		fscanf(pfilmoteca, "%s %i %f", &peli.titulo, &peli.year, &peli.nota);
+		fscanf(pfilmoteca, "%[^\n]", &peli.titulo);
+		fscanf(pfilmoteca, "%i %f",&peli.year, &peli.nota);
 		printf("%s\t\t\t %i\t\t\t %.2f \n",peli.titulo, peli.year, peli.nota);
 		}
 	fclose(pfilmoteca); 
