@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<math.h>
-#define N 6
 
 typedef struct{
 	char titulo[50];
@@ -9,19 +8,20 @@ typedef struct{
 }pelicula;
 
 
-//Funci?n ordenar por titulo
-//Funci?n ordenar por nota
-//Funci?n ordenar por g?nero
+//Funciones ordenar por titulo, año y nota
 void registrapeli(pelicula peli);
-void mostrarpeli(pelicula peli);
+void mostrarpeli(pelicula peli, int N);
+int cuentapeli(pelicula peli);
 
 
 int main()
 {
 	FILE *pvideoteca;
 	char a; // para el switch
-	int error;
+	int error, N;//N para el numero de pelis
 	pelicula vcatalogo[N];
+	cuentapeli(vcatalogo[N]);
+	
 	do{
 		printf("\n");
 	do
@@ -39,7 +39,7 @@ int main()
 					
 				case 'm':
 				case 'M':	
-					mostrarpeli(vcatalogo[N]);
+					mostrarpeli(vcatalogo[N], N);
 					error=1;
 				break;
 					
@@ -66,7 +66,7 @@ void registrapeli(pelicula peli)
 				
 				printf("Year en el que se estreno la peli:\n");
 				scanf("%d",&peli.year);
-				fprintf(pfilmoteca, "%d \t", peli.year);
+				fprintf(pfilmoteca, "%d \t\t", peli.year);
 				
 				printf("Nota de la pelicula:\n");
 				scanf("%f",&peli.nota);
@@ -80,15 +80,15 @@ void registrapeli(pelicula peli)
 
 
 
-void mostrarpeli(pelicula peli)
+void mostrarpeli(pelicula peli, int N)
 {
 	FILE *pfilmoteca;
 	int i;
 	
 	pfilmoteca = fopen("videoteca.txt", "r");
-	printf("Titulo\n Year\t\t Nota \n\n");
+	printf("\nTitulo\nYear\t\tNota \n\n");
 	
-		for (i = 0; i <=N ; i++) // Leemos el fichero línea a línea de cosas separadas por espacios
+		for (i = 0; i<=N ; i++) // Leemos el fichero línea a línea
 		{  
 		fscanf(pfilmoteca, "%[^\n] ", &peli.titulo, &peli.year, &peli.nota);
 		printf("%s",peli.titulo, peli.year, peli.nota);
@@ -97,4 +97,24 @@ void mostrarpeli(pelicula peli)
 	fclose(pfilmoteca); 
 	}
 
+
+
+int cuentapeli(pelicula peli)
+{
+	FILE *pfilmoteca;
+	int N;//variable en la que almacenará el número de películas que va contando
+	int tampeli;// variable que dirá el tamaño de la estructura que almacena las películas
+	int tamfiche;//variable que dirá el tamaño de la película
+	pfilmoteca = fopen("videoteca.txt", "r");
+	fseek(pfilmoteca,0,SEEK_END);
+	tamfiche=ftell(pfilmoteca);
+	fseek(pfilmoteca,0,SEEK_SET);
+	tampeli=sizeof(peli);
+	N=tamfiche/tampeli;
+	fclose(pfilmoteca);
+	printf("\n%d: numero de pelis\n",N);
+	printf("%d: size de la peli\n",tampeli);
+	printf("%d: size del fichero\n ",tamfiche);
+	return N;
+}
 
