@@ -1,6 +1,4 @@
-nombre;			2018;	2.40;
-tal tal;		2019;	4.60;
-27 Semanas depues;		2006;	7.30;
-El Show de Truman;		1999;	8.10;
-ironman 2;		2010;	6.50;
-superman returns;		2006;	5.20;
+Spiderman;		2002;	7.10;
+Dunkirk;		2017;	9.10;
+Cartas a Julieta;		2006;	5.60;
+Memento ;		1996;	8.30;
