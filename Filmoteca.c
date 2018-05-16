@@ -20,7 +20,7 @@ int cuentapeli(pelicula peli);
 int main()
 {
 	FILE *pvideoteca;
-	char a; // para el switch
+	int a; // para el switch
 	int error, N;//N para el numero de pelis
 	pelicula vcatalogo[N];
 	cuentapeli(vcatalogo[N]);
@@ -29,31 +29,34 @@ int main()
 		printf("\n");
 		do
 		{
-			printf("Que desea hacer: R:Registar, M:Mostrar \n");
-			scanf("%c",&a);
+			printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
+			scanf("%i",&a);
 			fflush(stdin);
 			switch (a)
 				{
-					case 'R':
-					case 'r':	
+					case 1:
+						
 						registrapeli(vcatalogo[N]);
-						error=1;
+						
 					break;
 						
-					case 'm':
-					case 'M':	
+					case 2:
+						
 						mostrarpeli(vcatalogo[N], N);
-						error=1;
+						
 					break;
+					case 3:
+						printf("Ha salido del programa con exito");
+						break;
 					
 					default:
 						printf("Opcion no disponible \n");
-						error=-1;
+						
 					break;
 				}
 				fflush(stdin);
-		}while(error<0);
-	}while(error>0);
+		}while(a!=3);
+	}while(a!=3);
 	return 0;
 }
 
