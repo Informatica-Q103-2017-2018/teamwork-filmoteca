@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<math.h>
+#define N 2
 
 typedef struct{
 	char titulo[50];
@@ -11,8 +12,7 @@ typedef struct{
 //Faltan las funciones para ordenar por titulo, año y nota
 //Tenemos las funciones para registrar, mostrar y contar pelis
 void registrapeli(pelicula peli);
-void mostrarpeli(pelicula peli, int N);
-int cuentapeli(pelicula peli);
+void mostrarpeli(pelicula peli);
 
 
 
@@ -21,45 +21,42 @@ int main()
 {
 	FILE *pvideoteca;
 	int a; // para el switch
-	int error, N;//N para el numero de pelis
+	int error;
 	pelicula vcatalogo[N];
-	cuentapeli(vcatalogo[N]);
 	
-	do{
-		printf("\n");
+	do
+	{
 		do
 		{
-			printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
+			printf("\nQue desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
 			scanf("%i",&a);
 			fflush(stdin);
+			
 			switch (a)
 				{
 					case 1:
 						
 						registrapeli(vcatalogo[N]);
-						
 					break;
 						
 					case 2:
 						
-						mostrarpeli(vcatalogo[N], N);
-						
+						mostrarpeli(vcatalogo[N]);
 					break;
+					
 					case 3:
-						printf("Ha salido del programa con exito");
-						break;
+						printf("\nHa salido del programa con exito");
+					break;
 					
 					default:
-						printf("Opcion no disponible \n");
-						
+						printf("\nOpcion no disponible\n");
 					break;
 				}
-				fflush(stdin);
+			fflush(stdin);
 		}while(a!=3);
 	}while(a!=3);
 	return 0;
 }
-
 
 
 
@@ -71,64 +68,38 @@ void registrapeli(pelicula peli)
 			
 			printf("Titulo de la pelicula:\n");
 			scanf("%[^\n]", peli.titulo);
-			fprintf(pfilmoteca, "%s \n", peli.titulo);
+			fprintf(pfilmoteca, "%s;\t", peli.titulo);
 			
 			printf("Year en el que se estreno la peli:\n");
 			scanf("%d",&peli.year);
-			fprintf(pfilmoteca, "%d \t\t", peli.year);
+			fprintf(pfilmoteca, "%d;\t", peli.year);
 			
 			printf("Nota de la pelicula:\n");
 			scanf("%f",&peli.nota);
-			fprintf(pfilmoteca, "%.2f ", peli.nota);
-			fprintf(pfilmoteca,"\n");
+			fprintf(pfilmoteca, "%.2f;\n", peli.nota);
 		
 		fclose(pfilmoteca);
-		printf("\n Pelicula registrada correctamente.");
+		printf("\nPelicula registrada correctamente.\n");
 }
 
 
 
 
-
-void mostrarpeli(pelicula peli, int N)
+void mostrarpeli(pelicula peli)
 {
 	FILE *pfilmoteca;
 	int i;
 	
 	pfilmoteca = fopen("videoteca.txt", "r");
-	printf("\nTitulo \nYear\t\tNota \n\n");
+	printf("\nTitulo\t\tYear\tNota\n\n");
 	
 		for (i = 0; i<=N ; i++) // Leemos el fichero línea a línea
 		{  
-		fscanf(pfilmoteca, "%[^\n] ", &peli.titulo, &peli.year, &peli.nota);
-		printf("%s",peli.titulo, peli.year, peli.nota);
-		printf("\n");
+		fscanf(pfilmoteca, "%[^\n] %i %f ", &peli.titulo, &peli.year, &peli.nota);
+		printf("%s\t %i %.2f\n",peli.titulo, peli.year, peli.nota);
 		}
 	fclose(pfilmoteca); 
 	}
 	
 	
 	
-	
-	
-int cuentapeli(pelicula peli)
-{
-	FILE *pfilmoteca;
-	int N;//variable en la que almacenará el número de películas que va contando
-	int tampeli;// variable que dirá el tamaño de la estructura que almacena las películas
-	int tamfiche;//variable que dirá el tamaño de la película
-	
-		pfilmoteca = fopen("videoteca.txt", "r");
-		fseek(pfilmoteca,0,SEEK_END);
-		tamfiche=ftell(pfilmoteca);
-		fseek(pfilmoteca,0,SEEK_SET);
-		tampeli=sizeof(peli);
-		N=tamfiche/tampeli;
-		fclose(pfilmoteca);
-		
-	printf("\n%d: numero de pelis\n",N);
-	printf("%d: size de la peli\n",tampeli);
-	printf("%d: size del fichero\n ",tamfiche);
-	return N;
-}
-
