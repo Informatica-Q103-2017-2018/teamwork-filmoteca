@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<math.h>
-#define N 2
-
+#define N 6
 typedef struct{
 	char titulo[50];
 	int year;
@@ -13,7 +12,7 @@ typedef struct{
 //Tenemos las funciones para registrar, mostrar y contar pelis
 void registrapeli(pelicula peli);
 void mostrarpeli(pelicula peli);
-
+int devuelveN(pelicula peli);
 
 
 
@@ -22,8 +21,10 @@ int main()
 	FILE *pvideoteca;
 	int a; // para el switch
 	int error;
+	int A;
 	pelicula vcatalogo[N];
-	
+	A=devuelveN(vcatalogo[N]);
+	printf("%d",A);
 	do
 	{
 		do
@@ -82,9 +83,6 @@ void registrapeli(pelicula peli)
 		printf("\nPelicula registrada correctamente.\n");
 }
 
-
-
-
 void mostrarpeli(pelicula peli)
 {
 	FILE *pfilmoteca;
@@ -96,10 +94,23 @@ void mostrarpeli(pelicula peli)
 		for (i = 0; i<=N ; i++) // Leemos el fichero línea a línea
 		{  
 		fscanf(pfilmoteca, "%[^\n] %i %f ", &peli.titulo, &peli.year, &peli.nota);
-		printf("%s\t %i %.2f\n",peli.titulo, peli.year, peli.nota);
+		printf("%s\n",peli.titulo, peli.year, peli.nota);
 		}
 	fclose(pfilmoteca); 
 	}
 	
-	
+int devuelveN(pelicula peli)
+{
+	FILE *pfilmoteca;
+	int A=0;
+	char c;
+	pfilmoteca = fopen("videoteca.txt", "r");
+	while (fscanf(pfilmoteca, "%c", &c) != EOF)
+	{
+		if (c == '\n')
+			A++;
+	}
+	return A;
+	fclose(pfilmoteca); 
+}  
 	
