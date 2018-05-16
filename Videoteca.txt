@@ -1,4 +1,6 @@
-nombre;		2018;	2.40;
-tal tal;	2019;	4.60;
-27 Semanas depues;	2006;	7.30;
-El Show de Truman;	1999;	8.10;
+nombre;			2018;	2.40;
+tal tal;		2019;	4.60;
+27 Semanas depues;		2006;	7.30;
+El Show de Truman;		1999;	8.10;
+ironman 2;		2010;	6.50;
+superman returns;		2006;	5.20;

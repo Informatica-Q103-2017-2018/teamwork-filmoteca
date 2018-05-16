@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<math.h>
-#define N 6
+
 typedef struct{
 	char titulo[50];
 	int year;
@@ -11,7 +11,7 @@ typedef struct{
 //Faltan las funciones para ordenar por titulo, año y nota
 //Tenemos las funciones para registrar, mostrar y contar pelis
 void registrapeli(pelicula peli);
-void mostrarpeli(pelicula peli);
+void mostrarpeli(pelicula peli, int N);
 int devuelveN(pelicula peli);
 
 
@@ -19,17 +19,18 @@ int devuelveN(pelicula peli);
 int main()
 {
 	FILE *pvideoteca;
-	int a; // para el switch
-	int error;
-	int A;
+	int a, N, error;
 	pelicula vcatalogo[N];
-	A=devuelveN(vcatalogo[N]);
-	printf("%d",A);
+	N=devuelveN(vcatalogo[N]);
+	
+
 	do
 	{
 		do
 		{
-			printf("\nQue desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
+			N=devuelveN(vcatalogo[N]);
+			printf("\nNumero de peliculas: %d\n",N);
+			printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
 			scanf("%i",&a);
 			fflush(stdin);
 			
@@ -42,7 +43,7 @@ int main()
 						
 					case 2:
 						
-						mostrarpeli(vcatalogo[N]);
+						mostrarpeli(vcatalogo[N], N);
 					break;
 					
 					case 3:
@@ -69,7 +70,7 @@ void registrapeli(pelicula peli)
 			
 			printf("Titulo de la pelicula:\n");
 			scanf("%[^\n]", peli.titulo);
-			fprintf(pfilmoteca, "%s;\t", peli.titulo);
+			fprintf(pfilmoteca, "%s;\t\t", peli.titulo);
 			
 			printf("Year en el que se estreno la peli:\n");
 			scanf("%d",&peli.year);
@@ -83,15 +84,18 @@ void registrapeli(pelicula peli)
 		printf("\nPelicula registrada correctamente.\n");
 }
 
-void mostrarpeli(pelicula peli)
+
+
+
+void mostrarpeli(pelicula peli, int N)
 {
 	FILE *pfilmoteca;
 	int i;
 	
 	pfilmoteca = fopen("videoteca.txt", "r");
-	printf("\nTitulo\t\tYear\tNota\n\n");
+	printf("\nTitulo\t\t\tYear\tNota\n\n");
 	
-		for (i = 0; i<=N ; i++) // Leemos el fichero línea a línea
+		for (i = 0; i<N ; i++) // Leemos el fichero línea a línea
 		{  
 		fscanf(pfilmoteca, "%[^\n] %i %f ", &peli.titulo, &peli.year, &peli.nota);
 		printf("%s\n",peli.titulo, peli.year, peli.nota);
@@ -99,18 +103,21 @@ void mostrarpeli(pelicula peli)
 	fclose(pfilmoteca); 
 	}
 	
+	
+	
+
 int devuelveN(pelicula peli)
 {
 	FILE *pfilmoteca;
-	int A=0;
+	int N=0;
 	char c;
 	pfilmoteca = fopen("videoteca.txt", "r");
 	while (fscanf(pfilmoteca, "%c", &c) != EOF)
 	{
 		if (c == '\n')
-			A++;
+			N++;
 	}
-	return A;
 	fclose(pfilmoteca); 
+	return N;
 }  
 	
