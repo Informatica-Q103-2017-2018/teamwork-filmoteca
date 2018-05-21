@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<math.h>
+
 
 typedef struct{
 	char titulo[50];
@@ -10,33 +10,31 @@ typedef struct{
 
 //Faltan las funciones para ordenar por titulo, año y nota
 //Tenemos las funciones para registrar, mostrar y contar pelis
-void registrapeli(pelicula peli);
-void mostrarpeli(pelicula peli, int N);
-int devuelveN(pelicula peli);
+void registrapeli( );
+void mostrarpeli( );
+
 
 
 
 int main()
 {
 	FILE *pvideoteca;
-	int a, N;
-	pelicula vcatalogo[N];
+	int a;
 	
 
 	do
 	{
-		N=devuelveN(vcatalogo[N]);
 		printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
 		scanf("%i",&a);
 		
 		switch (a)
 			{
 			case 1:
-				registrapeli(vcatalogo[N]);
+				registrapeli( );
 			break;
 				
 			case 2:
-				mostrarpeli(vcatalogo[N], N);
+				mostrarpeli( );
 			break;
 			
 			case 3:
@@ -54,9 +52,10 @@ int main()
 
 
 
-void registrapeli(pelicula peli) 
+void registrapeli( ) 
 {
 	FILE *pfilmoteca;
+	pelicula peli;
 	pfilmoteca=fopen("Videoteca.txt","a");
 	fflush(stdin);
 			
@@ -79,15 +78,18 @@ void registrapeli(pelicula peli)
 
 
 
-void mostrarpeli(pelicula peli, int N)
+void mostrarpeli( )
 {
 	FILE *pfilmoteca;
-	int i;
+	pelicula peli;
+	int i, c;
 	
 	pfilmoteca=fopen("videoteca.txt", "r");
 	printf("\nTitulo\t\t\t\tYear\tNota\n\n");
 	
-		for (i=0; i<N; i++) // Leemos el fichero línea a línea
+	
+	while (feof(pfilmoteca) == 0)
+		// Leemos el fichero línea a línea
 		{  
 		fscanf(pfilmoteca, "%[^\n] %i %f ", &peli.titulo, &peli.year, &peli.nota);
 		printf("%s\n",peli.titulo, peli.year, peli.nota);
@@ -95,24 +97,8 @@ void mostrarpeli(pelicula peli, int N)
 	fclose(pfilmoteca); 
 }
 	
-	
+
 	
 
-int devuelveN(pelicula peli)
-{
-	FILE *pfilmoteca;
-	int N=0;
-	char c;
-	pfilmoteca=fopen("videoteca.txt", "r");
-	while (fscanf(pfilmoteca, "%c", &c) != EOF)
-	{
-		if (c == '\n')
-			N++;
-	}
-	fclose(pfilmoteca); 
-	printf("\nNumero de peliculas: %d\n",N);
-	return N;
-}  
-	
 	
 	
