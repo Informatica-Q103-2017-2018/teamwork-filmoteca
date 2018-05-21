@@ -12,7 +12,7 @@ typedef struct{
 //Tenemos las funciones para registrar, mostrar y contar pelis
 void registrapeli( );
 void mostrarpeli( );
-
+void devuelveN( );
 
 
 
@@ -23,7 +23,7 @@ int main()
 	
 
 	do
-	{
+	{	devuelveN();
 		printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Salir\n");
 		scanf("%i",&a);
 		
@@ -97,7 +97,21 @@ void mostrarpeli( )
 	fclose(pfilmoteca); 
 }
 	
-
+	
+void devuelveN( )
+{
+	FILE *pfilmoteca;
+	int N=0;
+	char c;
+	pfilmoteca = fopen("videoteca.txt", "r");
+	while (fscanf(pfilmoteca, "%c", &c) != EOF)
+	{
+		if (c == '\n')
+			N++;
+	}
+	fclose(pfilmoteca); 
+	printf("\nHay %d peliculas\n",N);
+}  
 	
 
 	

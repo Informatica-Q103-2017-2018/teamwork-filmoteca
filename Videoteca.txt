@@ -7,3 +7,4 @@ Indiana Jones;			2989;	8.60;
 28 dias despues;			2002;	7.60;
 Los vengadores;			2018;	7.40;
 Star wars;			1980;	5.00;
+lalaland;			2016;	1.50;
