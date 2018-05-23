@@ -127,35 +127,34 @@ void ordenayear( )
 	FILE *pfilmoteca;
 	pfilmoteca = fopen("videoteca.txt", "r");
 	pelicula peli[N];
-	int i=0, j=0, aux;
+	pelicula aux;
+	int i=0, j=0;
 	
-	//Primero pedimos los datos
+	//Primero leemos los datos
 		while (feof(pfilmoteca) == 0)
 	{
-		fscanf(pfilmoteca, "%[^;]; %i; %f; ", peli[i].titulo, &peli[i].year, &peli[i].nota);
+		fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 		i++;
 	}
+	
+	
+	printf("Peliculas ordenadas por año: \n");
 	//Ahora lo ordenamos
 		for(i=0; i<=N-1; i++)
 		{
 			// Comparamos cada elemento con el siguiente
-			for(j=i+1; j<=N ; j++)
+			for(j=i+1; j<=N-1 ; j++)
 			{
 				if (peli[i].year > peli[j].year)
-				{//Si es mayor intercambiamos el contenido de los dos
-				//elementos
-				aux = peli[i].year; //Necesitamos una variable auxiliar de
-				//almacenamiento temporal
-				peli[i].year = peli[j].year;
-				peli[j].year = aux;
+				{
+				//Si es mayor intercambiamos el contenido de los dos elementos
+				aux = peli[i]; //Necesitamos una variable auxiliar de almacenamiento temporal
+				peli[i] = peli[j];
+				peli[j] = aux;
 				}
 			}
-		}
-	
-	//sacamos el vector por pantalla
-	printf("Peliculas ordenadas por año: \n");
-	printf("%s %i %.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
-	printf("\n");
+				printf("%s %i %.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
+		}	
 	fclose(pfilmoteca); 
 	
 }
