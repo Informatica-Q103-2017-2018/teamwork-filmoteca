@@ -21,7 +21,7 @@ void ordenanota( );
 int main()
 {
 	FILE *pvideoteca;
-	int a;
+	int a,b;
 
 	do
 	{	devuelveN( );
@@ -39,7 +39,22 @@ int main()
 			break;
 			
 			case 3:
-				ordenayear( );	
+				printf("\n 1:fecha, 2:nota, 3:volver\n");
+				scanf("%i",&b);
+				switch(b)
+				{
+					case 1:
+						ordenayear( );
+					break;
+					
+					case 2:
+						ordenanota( );
+					break;
+					
+					case 3:
+						printf("volver");
+					break;
+					}	
 			break;
 			
 			case 4:
