@@ -1,11 +1,11 @@
-Deadpool;			2016;	8.20;
 Memento;			2000;	8.50;
 Inside out;			2015;	8.40;
 Reservoir dosgs;			1992;	8.30;
 Trainsportting;			1996;	8.10;
-Indiana Jones;			2989;	8.60;
-28 dias despues;			2002;	7.60;
+Indiana Jones;			1989;	8.60;
 Los vengadores;			2018;	7.40;
 Star wars;			1980;	5.00;
-lalaland;			2016;	1.50;
+La la land;			2016;	1.50;
 King Kong;			2006;	5.20;
+Deadpool;			2016;	8.20;
+28 dias despues;			2002;	7.60;
