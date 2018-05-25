@@ -65,7 +65,7 @@ int main()
 							printf("\nOpcion no disponible \n");
 						break;
 					}	
-				}while(b=!3);
+				}while(b=!4);
 			break;
 			
 			case 4:
@@ -130,7 +130,7 @@ void mostrarpeli( )
 int devuelveN( )
 {
 	FILE *pfilmoteca;
-	int N=0; //Al inicio: 0 lineas
+	int N=-1; //Al inicio: 1 linea vacia para leer bien el fichero
 	char c; //para contar las lineas
 	pfilmoteca = fopen("videoteca.txt", "r"); //abrimos el fichero en modo lectura
 	while (fscanf(pfilmoteca, "%c", &c) != EOF) // Leemos el fichero hasta el final
@@ -177,6 +177,7 @@ void ordenatitulo( )
 		}
 		printf("%-40s %i\t\t%.2f",peli[i].titulo, peli[i].year, peli[i].nota);
 	}	
+	printf("\n");
 	fclose(pfilmoteca); 
 }
 
@@ -213,6 +214,7 @@ void ordenayear( )
 		}
 		printf("%-40s %i\t\t%.2f",peli[i].titulo, peli[i].year, peli[i].nota);
 	}
+	printf("\n");
 	fclose(pfilmoteca); 
 }
 
@@ -250,7 +252,8 @@ void ordenanota( )
 			}
 		}
 		printf("%-40s %i\t\t%.2f",peli[i].titulo, peli[i].year, peli[i].nota);
-	}	
+	}
+	printf("\n");
 	fclose(pfilmoteca); 
 }
 
