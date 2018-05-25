@@ -2,34 +2,34 @@
 #include<stdlib.h>
 #include<math.h>
 
-typedef struct{
+typedef struct //estructura de la pelicula
+{
 	char titulo[50];
 	int year;
 	float nota;
-}pelicula;
+}pelicula; 
 
 
-//Faltan las funciones para ordenar por titulo
-//Tenemos las funciones para registrar, mostrar, contar pelis y ordenar por año y año
-void registrapeli( );
-void mostrarpeli( );
-int devuelveN( );
-void ordenayear( );
-void ordenanota( );
+void registrapeli( );//función para añadir peliculas al fichero
+void mostrarpeli( ); //función para mostrar las peliculas que hay registradas
+int devuelveN( ); //función para contar las peliculas que hay registradas
+void ordenayear( ); //función para ordenar las peliculas por año
+void ordenanota( ); //función para ordenar las peliculas por nota
 
 
 int main()
 {
 	FILE *pvideoteca;
-	int a,b;
+	int a,b; //opciones para los switch-case
 
 	do
-	{	devuelveN( );
+	{	
+		devuelveN( );
 		printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Ordenar, 4:Salir,\n");
 		scanf("%i",&a);
 		
 		switch (a)
-			{
+		{
 			case 1:
 				registrapeli( );
 			break;
@@ -39,22 +39,29 @@ int main()
 			break;
 			
 			case 3:
-				printf("\n 1:fecha, 2:nota, 3:volver\n");
-				scanf("%i",&b);
-				switch(b)
-				{
-					case 1:
-						ordenayear( );
-					break;
+				do
+				{	
+					printf("\n1:por a%co, 2:por nota, 3:regresar\n", 164);
+					scanf("%i",&b);
+				
+					switch(b)
+					{	case 1:
+							ordenayear( );
+						break;
+						
+						case 2:
+							ordenanota( );
+						break;
 					
-					case 2:
-						ordenanota( );
-					break;
+						case 3:
+							printf("Has vuelto\n");
+						break;
 					
-					case 3:
-						printf("volver");
-					break;
+						default:
+							printf("\nOpcion no disponible \n");
+						break;
 					}	
+				}while(b=!3);
 			break;
 			
 			case 4:
@@ -64,26 +71,25 @@ int main()
 			default:
 				printf("\nOpcion no disponible \n");
 			break;
-			}
+		}
 	}while(a!=4);
 	return 0;
 }
 
 
 
-
 void registrapeli( ) 
 {
 	FILE *pfilmoteca;
-	pelicula peli;
-	pfilmoteca=fopen("Videoteca.txt","a");
-	fflush(stdin);
+	pelicula peli; //estructura de la pelicula
+	pfilmoteca=fopen("Videoteca.txt","a"); //abrimos el fichero para añadir peliculas
+	fflush(stdin); //limpiamos la entrada de texto
 			
 		printf("Titulo de la pelicula:\n");
 		scanf("%[^\n]", peli.titulo);
 		fprintf(pfilmoteca, "%s;\t\t\t", peli.titulo);
 		
-		printf("A%co en el que se estreno la peli:\n", 164);
+		printf("A%co en el que se estreno la pelicula:\n", 164);
 		scanf("%d",&peli.year);
 		fprintf(pfilmoteca, "%d;\t", peli.year);
 		
@@ -91,133 +97,119 @@ void registrapeli( )
 		scanf("%f",&peli.nota);
 		fprintf(pfilmoteca, "%.2f;\n", peli.nota);
 		
-	fclose(pfilmoteca);
+	fclose(pfilmoteca); //cerramos el fichero
 	printf("\nPelicula registrada correctamente.\n");
 }
 
 
 
-
 void mostrarpeli( )
 {
-	FILE *pfilmoteca;
-	pelicula peli;
-	int i, c;
 	
-	pfilmoteca=fopen("videoteca.txt", "r");
+	FILE *pfilmoteca;
+	pelicula peli; //estructura de la pelicula
+	
+	pfilmoteca=fopen("videoteca.txt", "r"); //abrimos el fichero en modo lectura
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
 	
 	
-	while (feof(pfilmoteca) == 0)
-		// Leemos el fichero línea a línea
-		{  
+	while (feof(pfilmoteca) == 0) // Leemos el fichero hasta el final
+	{  
 		fscanf(pfilmoteca, "%[^;]; %i; %f; ", peli.titulo, &peli.year, &peli.nota);
 		printf("%-40s %i\t\t%.2f\n",peli.titulo, peli.year, peli.nota);
-		}
-	fclose(pfilmoteca); 
+	}
+	fclose(pfilmoteca); //cerramos el fichero
 }
-	
-	
+
+
+
 int devuelveN( )
 {
 	FILE *pfilmoteca;
-	int N=0;
-	char c;
-	pfilmoteca = fopen("videoteca.txt", "r");
-	while (fscanf(pfilmoteca, "%c", &c) != EOF)
+	int N=0; //Al inicio: 0 lineas
+	char c; //para contar las lineas
+	pfilmoteca = fopen("videoteca.txt", "r"); //abrimos el fichero en modo lectura
+	while (fscanf(pfilmoteca, "%c", &c) != EOF) // Leemos el fichero hasta el final
 	{
 		if (c == '\n')
-			N++;
+			N++; //Cada vez que encuentra un salto de linea suma 1 al numero de pelis
 	}
-	fclose(pfilmoteca); 
+	fclose(pfilmoteca); //cerramos el fichero
 	printf("\nHay %d peliculas\n",N);
 	return N;
-}  
-	
-	
+}
 
 
 
 void ordenanota( )
 {
-	int N=devuelveN( );
+	int N=devuelveN( ); //Para saber el número de peliculas para el vector
 	FILE *pfilmoteca;
-	pfilmoteca = fopen("videoteca.txt", "r");
-	pelicula peli[N];
-	pelicula aux;
+	pfilmoteca = fopen("videoteca.txt", "r"); 
+	pelicula peli[N]; //creamos un vector de peliculas
+	pelicula aux; //Necesitamos una variable auxiliar de almacenamiento temporal
 	int i=0, j=0;
 	
-	//Primero leemos los datos
-		while (feof(pfilmoteca) == 0)
+	
+	while (feof(pfilmoteca) == 0) //Primero leemos los datos
 	{
 		fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 		i++;
 	}
 	
-	
-	printf("Peliculas ordenadas por año: \n");
+	printf("Peliculas ordenadas por a%co: \n",164);
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
-	//Ahora lo ordenamos
-		for(i=0; i<=N-1; i++)
-		{
-			// Comparamos cada elemento con el siguiente
-			for(j=i+1; j<=N-1 ; j++)
-			{
-				if (peli[i].nota > peli[j].nota)
-				{
-				//Si es mayor intercambiamos el contenido de los dos elementos
-				aux = peli[i]; //Necesitamos una variable auxiliar de almacenamiento temporal
-				peli[i] = peli[j];
-				peli[j] = aux;
-				}
-			}
-				printf("%-40s %i\t\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
-		}	
-	fclose(pfilmoteca); 
 	
+	for(i=0; i<=N-1; i++) //Ahora lo ordenamos
+	{
+		for(j=i+1; j<=N-1 ; j++) // Comparamos cada elemento con el siguiente
+		{
+			if (peli[i].nota > peli[j].nota)//Si es mayor intercambiamos el contenido de los dos elementos
+			{
+			aux = peli[i];
+			peli[i] = peli[j];
+			peli[j] = aux;
+			}
+		}
+		printf("%-40s %i\t\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
+	}	
+	fclose(pfilmoteca); 
 }
-
-
 
 
 
 void ordenayear( )
 {
-	int N=devuelveN( );
+	int N=devuelveN( ); 
 	FILE *pfilmoteca;
-	pfilmoteca = fopen("videoteca.txt", "r");
+	pfilmoteca = fopen("videoteca.txt", "r"); 
 	pelicula peli[N];
-	pelicula aux;
+	pelicula aux; //Necesitamos una variable auxiliar de almacenamiento temporal
 	int i=0, j=0;
 	
-	//Primero leemos los datos
-		while (feof(pfilmoteca) == 0)
+	while (feof(pfilmoteca) == 0) //Primero leemos los datos
 	{
 		fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 		i++;
 	}
 	
-	
 	printf("Peliculas ordenadas por año: \n");
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
-	//Ahora lo ordenamos
-		for(i=0; i<=N-1; i++)
+	
+	for(i=0; i<=N-1; i++) //Ahora lo ordenamos
+	{
+		for(j=i+1; j<=N-1 ; j++) // Comparamos cada elemento con el siguiente
 		{
-			// Comparamos cada elemento con el siguiente
-			for(j=i+1; j<=N-1 ; j++)
+			if (peli[i].year > peli[j].year) //Si es mayor intercambiamos el contenido de los dos elementos
 			{
-				if (peli[i].year > peli[j].year)
-				{
-				//Si es mayor intercambiamos el contenido de los dos elementos
-				aux = peli[i]; //Necesitamos una variable auxiliar de almacenamiento temporal
+				aux = peli[i]; 
 				peli[i] = peli[j];
 				peli[j] = aux;
-				}
 			}
-				printf("%-40s %i\t\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
-		}	
+		}
+		printf("%-40s %i\t\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);
+	}
 	fclose(pfilmoteca); 
-	
 }
 
 
