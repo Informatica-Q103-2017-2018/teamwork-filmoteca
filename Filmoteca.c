@@ -25,7 +25,7 @@ int main()
 
 	do
 	{	devuelveN( );
-		printf("Que desea hacer: 1:Registar, 2:Mostrar, 3:Ordenar, 4:Salir,\n");
+		printf("Que desea hacer: 1:Registar, 2:Mostrar ultimas registradas, 3:Mostrar por orden, 4:Salir,\n");
 		scanf("%i",&a);
 		
 		switch (a)
@@ -39,7 +39,8 @@ int main()
 			break;
 			
 			case 3:
-				printf("\n 1:fecha, 2:nota, 3:titulo 4:volver\n");
+				printf("\nPor orden de...\n");
+				printf("\n 1:...fecha, 2:...nota, 3:...titulo, 4:Volver\n");
 				scanf("%i",&b);
 				switch(b)
 				{
@@ -56,17 +57,17 @@ int main()
 						break;
 						
 					case 4:
-						printf("volver");
+						printf("Volviendo");
 					break;
 					}	
 			break;
 			
 			case 4:
-				printf("\nHa salido del programa con exito");
+				printf("\nSaliendo");
 			break;		
 			
 			default:
-				printf("\nOpcion no disponible \n");
+				printf("\nOpcion no disponible\n");
 			break;
 			}
 	}while(a!=4);
