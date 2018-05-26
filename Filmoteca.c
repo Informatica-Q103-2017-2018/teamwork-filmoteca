@@ -266,62 +266,41 @@ void ordenatitulo()
 	fclose(pfilmoteca); 
 }
 
+
 void buscapeli( )
-
 {
+	FILE *pfilmoteca;
+	char titulo[30],texto[80];
+	int i,tmp1,tmp2;
+	fflush(stdin); 	
+    printf("Introduzca el titulo de la pelicula: \n");
+	gets(titulo);
 
-      FILE *pfilmoteca;
+    pfilmoteca=fopen("Videoteca.txt","r");
+    if (pfilmoteca==NULL)
+		printf("Error abriendo el fichero");
 
-      char titulo[30],texto[80];
-
-      int i,tmp1,tmp2;
-	  fflush(stdin); 	
-      printf("Introduzca el titulo de la pelicula: \n");
-
-      gets(titulo);
-
-
-      pfilmoteca=fopen("Videoteca.txt","r");
-
-      if (pfilmoteca==NULL)
-
-         printf("Error abriendo el fichero");
-
-
-      while (feof(pfilmoteca)==0)
-
-      {
-            fgets(texto,80,pfilmoteca);
-
-            for(i=0;i<strlen(texto);i++)
-
-            {
-
-               if (titulo[0]==texto[i])
-
-               {
-
-                  tmp1=0;
-
-                  tmp2=i;
-
-                  while ((titulo[tmp1]==texto[tmp2])&&(tmp2<strlen(texto))&&(tmp1!=strlen(titulo)))
-
-                  {
-                        tmp1++;
-
-                        tmp2++;
-
-                        if (tmp1==strlen(titulo))
-                       {
-						 printf("\nTitulo\t\t\t\t A%co\tNota\n\n",164);
-
-                         printf("%-40s",texto);
-                  }
-              }
-               }
+	while (feof(pfilmoteca)==0)
+	{
+    	fgets(texto,80,pfilmoteca);
+		for(i=0;i<strlen(texto);i++)
+		{
+			if (titulo[0]==texto[i])
+			{
+				tmp1=0;
+				tmp2=i;
+				while ((titulo[tmp1]==texto[tmp2])&&(tmp2<strlen(texto))&&(tmp1!=strlen(titulo)))
+				{
+                	tmp1++;
+					tmp2++;
+					if (tmp1==strlen(titulo))
+                    {
+						printf("\nTitulo\t\t\t\t A%co\tNota\n\n",164);
+						printf("%-40s",texto);
+                  	}
+              	}
             }
-      }
-
+        }
+    }
 }
 
