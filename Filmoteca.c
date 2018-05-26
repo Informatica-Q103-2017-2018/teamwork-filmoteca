@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<string.h>
 
 typedef struct{
 	char titulo[50];
@@ -15,6 +16,7 @@ int devuelveN( );
 void ordenayear( );
 void ordenanota( );
 void ordenatitulo();
+void buscapeli( );
 
 int main()
 {
@@ -23,20 +25,24 @@ int main()
 	printf("\nBIENVENIDO A SU FILMOTECA\n");
 	do
 	{	devuelveN( );
-		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Ordenar, 4:Salir\n");
+		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Salir\n");
 		scanf("%i",&a);
 		
 		switch (a)
 		{
 			case 1:
-				registrapeli( );
+				buscapeli( );
 			break;
 				
 			case 2:
 				mostrarpeli( );
 			break;
-			
+		
 			case 3:
+				buscapeli( );
+			break;		
+				
+			case 4:
 				do
 				{
 					printf("\n1:Por fecha, 2:Por nota, 3:Por titulo, 4:Volver\n");
@@ -61,8 +67,8 @@ int main()
 					}	
 				} while(b!=4);
 			break;
-			
-			case 4:
+					
+			case 5:
 				printf("\nHas salido del programa");
 			break;		
 			
@@ -70,7 +76,7 @@ int main()
 				printf("\nOpcion no disponible\n");
 			break;
 		}
-	} while(a!=4);
+	} while(a!=5);
 	return 0;
 }
 
@@ -260,5 +266,62 @@ void ordenatitulo()
 	fclose(pfilmoteca); 
 }
 
+void buscapeli( )
 
+{
+
+      FILE *pfilmoteca;
+
+      char titulo[30],texto[80];
+
+      int i,tmp1,tmp2;
+	  fflush(stdin); 	
+      printf("Introduzca el titulo de la pelicula: \n");
+
+      gets(titulo);
+
+
+      pfilmoteca=fopen("Videoteca.txt","r");
+
+      if (pfilmoteca==NULL)
+
+         printf("Error abriendo el fichero");
+
+
+      while (feof(pfilmoteca)==0)
+
+      {
+            fgets(texto,80,pfilmoteca);
+
+            for(i=0;i<strlen(texto);i++)
+
+            {
+
+               if (titulo[0]==texto[i])
+
+               {
+
+                  tmp1=0;
+
+                  tmp2=i;
+
+                  while ((titulo[tmp1]==texto[tmp2])&&(tmp2<strlen(texto))&&(tmp1!=strlen(titulo)))
+
+                  {
+                        tmp1++;
+
+                        tmp2++;
+
+                        if (tmp1==strlen(titulo))
+                       {
+						 printf("\nTitulo\t\t\t\t A%co\tNota\n\n",164);
+
+                         printf("%-40s",texto);
+                  }
+              }
+               }
+            }
+      }
+
+}
 
