@@ -183,9 +183,6 @@ void ordenanota( )
 }
 
 
-
-
-
 void ordenayear( )
 {
 	int N=devuelveN( );

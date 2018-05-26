@@ -9,3 +9,4 @@ La la land;			2016;	1.50;
 King Kong;			2006;	5.20;
 Deadpool;			2016;	8.20;
 28 dias despues;			2002;	7.60;
+ampliacion;			2018;	6.00;
