@@ -15,14 +15,14 @@ void mostrarpeli( );
 int devuelveN( );
 void ordenayear( );
 void ordenanota( );
-void ordenatitulo();
+void ordenatitulo( );
 void buscapeli( );
 
 int main()
 {
 	FILE *pvideoteca;
 	int a,b;
-	printf("\nBIENVENIDO A SU FILMOTECA\n");
+	printf("\n*****BIENVENIDO A SU FILMOTECA*****\n");
 	do
 	{	devuelveN( );
 		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Salir\n");
@@ -31,7 +31,7 @@ int main()
 		switch (a)
 		{
 			case 1:
-				buscapeli( );
+				registrapeli( );
 			break;
 				
 			case 2:
@@ -62,18 +62,18 @@ int main()
 						break;
 							
 						case 4:
-							printf("\nVolviendo");
+							printf("\nVolviendo.\n");
 						break;
 					}	
 				} while(b!=4);
 			break;
 					
 			case 5:
-				printf("\nHas salido del programa");
+				printf("\nHas salido del programa.");
 			break;		
 			
 			default:
-				printf("\nOpcion no disponible\n");
+				printf("\nOpcion no disponible.\n");
 			break;
 		}
 	} while(a!=5);
@@ -91,7 +91,7 @@ void registrapeli( )
 			
 		printf("Titulo de la pelicula:\n");
 		scanf("%[^\n]", peli.titulo);
-		fprintf(pfilmoteca, "%s;\t\t\t", peli.titulo);
+		fprintf(pfilmoteca, "\n%s;\t\t\t", peli.titulo);
 		
 		printf("A%co en el que se estreno la peli:\n", 164);
 		scanf("%d",&peli.year);
@@ -99,7 +99,7 @@ void registrapeli( )
 		
 		printf("Nota de la pelicula:\n");
 		scanf("%f",&peli.nota);
-		fprintf(pfilmoteca, "%.2f;\n", peli.nota);
+		fprintf(pfilmoteca, "%.2f;", peli.nota);
 		
 	fclose(pfilmoteca);
 	printf("\nPelicula registrada correctamente.\n");
@@ -131,7 +131,7 @@ void mostrarpeli( )
 int devuelveN( )
 {
 	FILE *pfilmoteca;
-	int N=-1;
+	int N=0;
 	char c;
 	pfilmoteca = fopen("videoteca.txt", "r");
 	while (fscanf(pfilmoteca, "%c", &c) != EOF)
@@ -140,7 +140,7 @@ int devuelveN( )
 			N++;
 	}
 	fclose(pfilmoteca); 
-	printf("\nHay %d peliculas\n",N);
+	printf("\nHay %d peliculas.\n",N);
 	return N;
 }  
 	
@@ -163,7 +163,7 @@ void ordenanota( )
 	}
 	
 	
-	printf("Peliculas ordenadas por nota: \n");
+	printf("\nPeliculas ordenadas por nota: \n");
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
 	//Ahora lo ordenamos
 		for(i=0; i<=N-1; i++)
@@ -205,7 +205,7 @@ void ordenayear( )
 	}
 	
 	
-	printf("Peliculas ordenadas por a%co: \n",164);
+	printf("\nPeliculas ordenadas por a%co: \n",164);
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
 	//Ahora lo ordenamos
 		for(i=0; i<=N-1; i++)
@@ -245,7 +245,7 @@ void ordenatitulo()
 		fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 		i++;
 	}
-	printf("Peliculas ordenadas por titulo: \n");
+	printf("\nPeliculas ordenadas por titulo: \n");
 	printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
 	//Ahora lo ordenamos
 		for(i=0; i<=N-1; i++)
@@ -278,7 +278,7 @@ void buscapeli( )
 
     pfilmoteca=fopen("Videoteca.txt","r");
     if (pfilmoteca==NULL)
-		printf("Error abriendo el fichero");
+		printf("Error abriendo el fichero.");
 
 	while (feof(pfilmoteca)==0)
 	{
@@ -295,8 +295,8 @@ void buscapeli( )
 					tmp2++;
 					if (tmp1==strlen(titulo))
                     {
-						printf("\nTitulo\t\t\t\t A%co\tNota\n\n",164);
-						printf("%-40s",texto);
+						printf("\nTitulo;\t A%co;\tNota;\n\n",164);
+						printf("%s",texto);
                   	}
               	}
             }
