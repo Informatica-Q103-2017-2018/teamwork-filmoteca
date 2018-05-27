@@ -35,3 +35,4 @@ Spiderman 3;			2007;	5.50;
 Ironman 3;			2013;	7.20;
 Brave;			2012;	6.30;
 Up;			2009;	9.10;
+Los Simpson;			2007;	9.10;

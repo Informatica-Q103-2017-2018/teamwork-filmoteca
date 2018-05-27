@@ -21,12 +21,12 @@ int buscayear( );
 
 int main()
 {	
-	int a,b; //para los switch-case
+	int a,b,c; //para los switch-case
 	printf("\n*****BIENVENIDO A SU FILMOTECA*****\n");
 	do
 	{	
 		devuelveN( );//para saber el numero de peliculas
-		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Mostrar pelis del a%co que se desee, 6:Salir\n",164);
+		printf("\nQue desea hacer: \n1:Registrar \n2:Mostrar pelis \n3:Buscar \n4:Ordenar \n5:Salir\n",164);
 		scanf("%i",&a);
 		
 		switch (a)
@@ -39,16 +39,34 @@ int main()
 				mostrarpeli( );
 			break;
 		
-			case 3:
-				buscapeli( );
-			break;		
-				
+			case 3:// para las funciones de buscar
+				do
+				{
+					printf("\n1:Por fecha \n2:Por titulo \n3:Volver\n");
+					scanf("%i",&b);
+					switch(b)
+					{
+						case 1:
+							buscayear( );	
+						break;
+						
+						case 2:
+							buscapeli( );
+						break;
+						
+						case 3:
+							printf("\nHas vuelto al inicio.\n");
+						break;
+					}	
+				} while(b!=3);
+			break;
+			
 			case 4:// para las funciones de ordenar
 				do
 				{
-					printf("\n1:Por fecha, 2:Por nota, 3:Por titulo, 4:Volver\n");
-					scanf("%i",&b);
-					switch(b)
+					printf("\n1:Por fecha \n2:Por nota \n3:Por titulo \n4:Volver\n");
+					scanf("%i",&c);
+					switch(c)
 					{
 						case 1:
 							ordenayear( );
@@ -63,18 +81,14 @@ int main()
 						break;
 							
 						case 4:
-							printf("\nVolviendo.\n");
+							printf("\nHas vuelto al inicio.\n");
 						break;
 					}	
-				} while(b!=4);
+				} while(c!=4);
 			break;
-					
-			case 5:
-				buscayear( );
-				break;
 			
-			case 6:
-				printf("\nHas salido del programa.");
+			case 5:
+				printf("\nHas salido del programa.\n");
 			break;		
 			
 			default:
@@ -354,7 +368,7 @@ int buscapeli( )
 			i++;
 		}
 		
-		printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
+		printf("\nTitulo\t\t\t\t\tA%co\tNota\n\n",164);
 	
 		for(i=0; i<=N-1; i++) //Lo ordenamos
 		{
@@ -403,6 +417,7 @@ int buscayear( )
 	pelicula peli[N];
 	pelicula aux;
 	FILE *pfilmoteca;
+	
     pfilmoteca=fopen("Videoteca.txt","r");	
 	if (pfilmoteca == NULL)
 	{
@@ -414,6 +429,7 @@ int buscayear( )
 		fflush(stdin); 	
     	printf("\nIntroduzca el a%co del que quiere mostrar peliculas: \n",164);
 		scanf("%d",&yeardado);
+		printf("\nTitulo\t\t\t\t\tA%co\tNota\n\n",164);
 		while (feof(pfilmoteca) == 0) //Primero leemos los datos
 		{
 			fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
@@ -423,7 +439,7 @@ int buscayear( )
 		{
 			if (yeardado==peli[i].year)
 			{
-				printf("%-40s %i\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);//mostramos las peliculas por año   
+				printf("%-40s %i\t%.2f",peli[i].titulo, peli[i].year, peli[i].nota);//mostramos las peliculas por año   
 				existe=1;     	
 		    }
 		}
