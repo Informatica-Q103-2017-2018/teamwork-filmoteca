@@ -20,3 +20,8 @@ Alguien volo sobre el nido del cuco;			1975;	8.70;
 La chaqueta metalica;			1987;	8.30;
 El padrino;			1972;	9.80;
 La vida de Brian;			1979;	8.50;
+Aladin;			1992;	8.30;
+La dama y el vagabundo;			1955;	6.40;
+Harry Potter y la pidra filosofal;			2001;	5.70;
+Los juegos del hambre;			2014;	7.80;
+101 Dalmatas;			1961;	7.00;
