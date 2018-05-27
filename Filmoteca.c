@@ -6,9 +6,10 @@ typedef struct{
 	char titulo[50];
 	int year;
 	float nota;
-}pelicula;
+}pelicula; // estructura de cada pelicula
 
 
+//Todas las funciones que vamos a necesitar
 int registrapeli( );
 int mostrarpeli( );
 int devuelveN( );
@@ -19,11 +20,11 @@ int buscapeli( );
 
 int main()
 {	
-	int a,b;
+	int a,b; //para los switch-case
 	printf("\n*****BIENVENIDO A SU FILMOTECA*****\n");
 	do
 	{	
-		devuelveN( );
+		devuelveN( );//para saber el numero de peliculas
 		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Salir\n");
 		scanf("%i",&a);
 		
@@ -41,7 +42,7 @@ int main()
 				buscapeli( );
 			break;		
 				
-			case 4:
+			case 4:// para las funciones de ordenar
 				do
 				{
 					printf("\n1:Por fecha, 2:Por nota, 3:Por titulo, 4:Volver\n");
@@ -95,7 +96,7 @@ int registrapeli( )
 	
 	else
 	{	
-		fflush(stdin);	
+		fflush(stdin);
 		
 		printf("\nTitulo de la pelicula:\n");
 		scanf("%[^\n]", peli.titulo);
@@ -103,7 +104,7 @@ int registrapeli( )
 		
 		printf("\nA%co de la pelicula:\n", 164);
 		scanf("%d",&peli.year);
-		if(peli.nota<0)
+		if(peli.year<0) //control errores
 		{
 		printf("\nA%co no valido\n",164);
 		return -1;
@@ -113,7 +114,7 @@ int registrapeli( )
 		
 		printf("\nNota de la pelicula:\n");
 		scanf("%f",&peli.nota);
-		if(peli.nota<0)
+		if(peli.nota<0) //control errores
 		{
 		printf("\nNota no valida\n");
 		return -1;
@@ -141,8 +142,8 @@ int mostrarpeli( )
 	}
 	else
 	{
-		printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
-		while (feof(pfilmoteca) == 0) // Leemos el fichero
+		printf("\nTitulo\t\t\t\t\tA%co\t\tNota\n\n",164);
+		while (feof(pfilmoteca) == 0) // Leemos el fichero y mostramos las peliculas
 		{  
 			fscanf(pfilmoteca, "%[^;]; %i; %f; ", peli.titulo, &peli.year, &peli.nota);
 			printf("%-40s %i\t\t%.2f\n",peli.titulo, peli.year, peli.nota);
@@ -156,7 +157,7 @@ int mostrarpeli( )
 int devuelveN( )
 {
 	FILE *pfilmoteca;
-	int N=-1;
+	int N=0;// numero de lineas
 	char c;
 	pfilmoteca = fopen("videoteca.txt", "r");
 	
@@ -169,7 +170,7 @@ int devuelveN( )
 	{
 		while (fscanf(pfilmoteca, "%c", &c) != EOF)
 		{
-			if (c == '\n')
+			if (c == '\n') // va aumentando el numero de lineas
 				N++;
 		}
 		printf("\nHay %d peliculas.\n",N);
@@ -196,7 +197,7 @@ int ordenanota( )
 	}
 	else
 	{
-		while (feof(pfilmoteca) == 0) //Primero leemos los datos
+		while (feof(pfilmoteca) == 0) //Primero leemos las pelis
 		{
 			fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 			i++;
@@ -317,10 +318,14 @@ int ordenatitulo()
 
 int buscapeli( )
 {
+	int i=0,j=0,k=0,tmp1,tmp2;// para el bucle y para comparar
+	int N=devuelveN( );//para saber el numero de peliculas
+	char titulo[50];
+	pelicula peli[N];
+	pelicula aux;
 	FILE *pfilmoteca;
     pfilmoteca=fopen("Videoteca.txt","r");	
-	char titulo[30],texto[80];
-	int i,tmp1,tmp2;
+
 	
 	if (pfilmoteca == NULL)
 	{
@@ -330,32 +335,52 @@ int buscapeli( )
 	else
 	{
 		fflush(stdin); 	
-    	printf("Introduzca el titulo de la pelicula: \n");
-		gets(titulo);
-
-		while (feof(pfilmoteca)==0)
+    	printf("\nIntroduzca el titulo de la pelicula: \n");
+		scanf("%[^\n]",titulo);
+		
+		while (feof(pfilmoteca) == 0) //Primero leemos los datos
 		{
-    		fgets(texto,80,pfilmoteca);
-			for(i=0;i<strlen(texto);i++)
+			fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
+			i++;
+		}
+		
+		printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
+	
+		for(i=0; i<=N-1; i++) //Lo ordenamos
+		{
+			for(j=i+1; j<=N-1 ; j++) // Comparamos cada elemento con el siguiente
 			{
-				if (titulo[0]==texto[i])
+				if (strcmp(peli[i].titulo,peli[j].titulo)>0)//Si es mayor(alfabeticamente) intercambiamos el contenido de los dos elementos
+				{
+				aux = peli[i]; 
+				peli[i] = peli[j];
+				peli[j] = aux;
+				}
+			}
+			
+			for(k=0; k<=strlen(peli[i].titulo); k++)//bucle para recorrer cada pelicula
+			{
+				if (titulo[0]==peli[i].titulo[k])//comprobamos que coincidan el titulo introducido y el titulo de la pelicula registrada
 				{
 					tmp1=0;
-					tmp2=i;
-					while ((titulo[tmp1]==texto[tmp2])&&(tmp2<strlen(texto))&&(tmp1!=strlen(titulo)))
+					tmp2=k;
+					
+					while ((titulo[tmp1]==peli[i].titulo[tmp2]) && (tmp2<strlen(peli[i].titulo)) && (tmp1!=strlen(titulo)))
 					{
                 		tmp1++;
 						tmp2++;
 						if (tmp1==strlen(titulo))
                     	{
-							printf("\nTitulo;\t A%co;\tNota;\n\n",164);
-							printf("%s",texto);
+						printf("%-40s %i\t%.2f",peli[i].titulo, peli[i].year, peli[i].nota);//mostramos las peliculas alfabeticamente 
                   		}
 	              	}
-    	        }
+    	        } 
         	}
-	    }
+			
+		}	
+		printf("\n");
 	}
 }
+		
 
 
