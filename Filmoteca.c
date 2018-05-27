@@ -12,11 +12,12 @@ typedef struct{
 //Todas las funciones que vamos a necesitar
 int registrapeli( );
 int mostrarpeli( );
-int devuelveN( );
+int devuelveN( );//Funcion que devuelve un valor N que es el número de películas
 int ordenayear( );
 int ordenanota( );
 int ordenatitulo( );
 int buscapeli( );
+int buscayear( );
 
 int main()
 {	
@@ -25,7 +26,7 @@ int main()
 	do
 	{	
 		devuelveN( );//para saber el numero de peliculas
-		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Salir\n");
+		printf("\nQue desea hacer: 1:Registrar, 2:Mostrar pelis, 3:Buscar, 4:Ordenar, 5:Mostrar pelis del a%co que se desee, 6:Salir\n",164);
 		scanf("%i",&a);
 		
 		switch (a)
@@ -69,6 +70,10 @@ int main()
 			break;
 					
 			case 5:
+				buscayear( );
+				break;
+			
+			case 6:
 				printf("\nHas salido del programa.");
 			break;		
 			
@@ -125,6 +130,7 @@ int registrapeli( )
 		printf("\nPelicula registrada correctamente.\n");
 	}
 	fclose(pfilmoteca);
+	return 0;
 }
 
 
@@ -150,6 +156,7 @@ int mostrarpeli( )
 		}
 	}
 	fclose(pfilmoteca); 
+	return 0;
 }
 	
 	
@@ -176,7 +183,7 @@ int devuelveN( )
 		printf("\nHay %d peliculas.\n",N);
 	}
 	fclose(pfilmoteca); 
-	return N;
+	return N;//Devuelve un valor que es el número de saltos de línea contados
 }  
 	
 
@@ -222,6 +229,7 @@ int ordenanota( )
 		
 	}
 	fclose(pfilmoteca); 
+	return 0;
 }
 
 
@@ -267,7 +275,8 @@ int ordenayear( )
 		}	
 		printf("\n");
 	}
-	fclose(pfilmoteca); 
+	fclose(pfilmoteca);
+	return 0; 
 }
 
 
@@ -311,7 +320,8 @@ int ordenatitulo()
 		}	
 		printf("\n");
 	}
-	fclose(pfilmoteca); 
+	fclose(pfilmoteca);
+	return 0; 
 }
 
 
@@ -380,7 +390,50 @@ int buscapeli( )
 		}	
 		printf("\n");
 	}
+	return 0;
 }
-		
+
+
+
+int buscayear( )
+{
+	int i=0,existe=0;// para el bucle y para usar en el if y saber si hay pelis con el año dado
+	int N=devuelveN( );//para saber el numero de peliculas
+	int yeardado;// año que dara el usuario por teclado
+	pelicula peli[N];
+	pelicula aux;
+	FILE *pfilmoteca;
+    pfilmoteca=fopen("Videoteca.txt","r");	
+	if (pfilmoteca == NULL)
+	{
+		printf("Error al abrir el fichero.\n");
+		return -1;
+	}
+	else
+	{
+		fflush(stdin); 	
+    	printf("\nIntroduzca el a%co del que quiere mostrar peliculas: \n",164);
+		scanf("%d",&yeardado);
+		while (feof(pfilmoteca) == 0) //Primero leemos los datos
+		{
+			fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
+			i++;
+		}
+		for(i=0;i<N;i++)//Recorremos el vector de las peliculas 
+		{
+			if (yeardado==peli[i].year)
+			{
+				printf("%-40s %i\t%.2f\n",peli[i].titulo, peli[i].year, peli[i].nota);//mostramos las peliculas por año   
+				existe=1;     	
+		    }
+		}
+		 if(existe<1)
+		    {
+		    	printf("No hay pelis registradas en ese a%co\n",164);
+			}
+		printf("\n");
+	}
+	return 0;
+}		
 
 

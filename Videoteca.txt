@@ -34,3 +34,4 @@ La vida de Pi;			2012;	5.90;
 Spiderman 3;			2007;	5.50;
 Ironman 3;			2013;	7.20;
 Brave;			2012;	6.30;
+Up;			2009;	9.10;
