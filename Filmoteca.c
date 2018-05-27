@@ -82,7 +82,7 @@ int main()
 
 
 int registrapeli( ) 
-{	
+{
 	pelicula peli;
 	FILE *pfilmoteca;
 	pfilmoteca=fopen("Videoteca.txt","a");
@@ -103,10 +103,22 @@ int registrapeli( )
 		
 		printf("\nA%co de la pelicula:\n", 164);
 		scanf("%d",&peli.year);
+		if(peli.nota<0)
+		{
+		printf("\nA%co no valido\n",164);
+		return -1;
+		}
+		else
 		fprintf(pfilmoteca, "%d;\t", peli.year);
 		
 		printf("\nNota de la pelicula:\n");
 		scanf("%f",&peli.nota);
+		if(peli.nota<0)
+		{
+		printf("\nNota no valida\n");
+		return -1;
+		}
+		else
 		fprintf(pfilmoteca, "%.2f;", peli.nota);
 		
 		printf("\nPelicula registrada correctamente.\n");
@@ -120,7 +132,6 @@ int mostrarpeli( )
 {
 	FILE *pfilmoteca;
 	pelicula peli;
-	int i, c;
 	pfilmoteca=fopen("videoteca.txt", "r");
 	
 	if (pfilmoteca == NULL)
@@ -128,11 +139,9 @@ int mostrarpeli( )
 		printf("Error al abrir el fichero.\n");
 		return -1;
 	}
-	
 	else
 	{
 		printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
-	
 		while (feof(pfilmoteca) == 0) // Leemos el fichero
 		{  
 			fscanf(pfilmoteca, "%[^;]; %i; %f; ", peli.titulo, &peli.year, &peli.nota);
@@ -147,26 +156,25 @@ int mostrarpeli( )
 int devuelveN( )
 {
 	FILE *pfilmoteca;
-	int N=0;
+	int N=-1;
 	char c;
+	pfilmoteca = fopen("videoteca.txt", "r");
 	
 	if (pfilmoteca == NULL)
 	{
 		printf("Error al abrir el fichero.\n");
 		return -1;
 	}
-	
 	else
 	{
-		pfilmoteca = fopen("videoteca.txt", "r");
 		while (fscanf(pfilmoteca, "%c", &c) != EOF)
 		{
 			if (c == '\n')
 				N++;
 		}
-		fclose(pfilmoteca); 
 		printf("\nHay %d peliculas.\n",N);
 	}
+	fclose(pfilmoteca); 
 	return N;
 }  
 	
@@ -186,7 +194,6 @@ int ordenanota( )
 		printf("Error al abrir el fichero.\n");
 		return -1;
 	}
-	
 	else
 	{
 		while (feof(pfilmoteca) == 0) //Primero leemos los datos
@@ -194,7 +201,6 @@ int ordenanota( )
 			fscanf(pfilmoteca, "%[^;]; %i; %f;", peli[i].titulo, &peli[i].year, &peli[i].nota);
 			i++;
 		}
-	
 		printf("\nPeliculas ordenadas por nota: \n");
 		printf("\nTitulo\t\t\t\t\t A%co\t\tNota\n\n",164);
 
@@ -279,7 +285,6 @@ int ordenatitulo()
 		printf("Error al abrir el fichero.\n");
 		return -1;
 	}
-	
 	else
 	{
 		while (feof(pfilmoteca) == 0) //Primero leemos los datos
@@ -322,7 +327,6 @@ int buscapeli( )
 		printf("Error al abrir el fichero.\n");
 		return -1;
 	}
-	
 	else
 	{
 		fflush(stdin); 	

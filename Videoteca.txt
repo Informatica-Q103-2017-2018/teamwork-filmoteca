@@ -25,3 +25,5 @@ La dama y el vagabundo;			1955;	6.40;
 Harry Potter y la pidra filosofal;			2001;	5.70;
 Los juegos del hambre;			2014;	7.80;
 101 Dalmatas;			1961;	7.00;
+Los increibles;			2005;	8.40;
+2012;			2011;	7.90;
